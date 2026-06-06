@@ -11,10 +11,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import os
-import dotenv
-from datetime import timedelta
-dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = 'django-insecure-87&2xvf7yllyw^&8--5kxw%l@9p=xgqvy^)_gnyl&dj(e#k^!e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,9 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
-    'rest_framework',
-    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -57,8 +50,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'baize_backend.urls'
-
-AUTH_USER_MODEL = 'user.User'
 
 TEMPLATES = [
     {
@@ -106,42 +97,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-PRIVATE_KEY_PATH = os.path.join(BASE_DIR, 'certs', 'private.pem')
-PUBLIC_KEY_PATH = os.path.join(BASE_DIR, 'certs', 'public.pem')
-
-SIMPLE_JWT = {
-    # === 有效期配置 ===
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),   # Access Token 有效期 (默认5分钟)
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),    # Refresh Token 有效期 (默认1天)
-
-    # === 刷新策略 (可选) ===
-    'ROTATE_REFRESH_TOKENS': False, # 刷新Token时是否同时换发新的Refresh Token
-    'BLACKLIST_AFTER_ROTATION': False, # 换发新Refresh后，旧的立即加入黑名单(需启用黑名单应用)
-
-    # === 请求头与格式 ===
-    'AUTH_HEADER_TYPES': ('Bearer',),   # 请求头前缀，支持多个如 ('Bearer', 'JWT')
-    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION', # 对应的Meta名称
-
-    # === Token 中的数据 ===
-    'USER_ID_FIELD': 'id',           # 用户模型中的主键字段
-    'USER_ID_CLAIM': 'user_id',      # Payload 中存储用户ID的键名
-
-    'ALGORITHM': 'RS256', 
-
-    'SIGNING_KEY': open(PRIVATE_KEY_PATH, 'r').read(), 
-    'VERIFYING_KEY': open(PUBLIC_KEY_PATH, 'r').read(),
-}
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication'
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
-}
 
 
 # Internationalization
