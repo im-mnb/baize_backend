@@ -1,0 +1,9 @@
+# 所有的文本文件默认让 Git 自动管理换行符
+* text=auto
+
+# 明确指定 Windows 的批处理文件必须使用 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 明确指定 Linux 的 Shell 脚本必须使用 LF
+*.sh text eol=lf
