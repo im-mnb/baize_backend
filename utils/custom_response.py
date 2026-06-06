@@ -14,6 +14,6 @@ class SuccessResponse(BaseResponse):
     def __init__(self, code=ResponseCode.SUCCESS.value, count=1, message="success", data=""):
         super().__init__(code, count, message, data)
 
-class FailResponse(BaseResponse):
-    def __init__(self, code=ResponseCode.FAIL.value, count=0, message="fail", data=""):
+class ErrorResponse(BaseResponse):
+    def __init__(self, code=ResponseCode.UNKNOE.value, count=0, message="error", data=""):
         super().__init__(code, count, message, data)
